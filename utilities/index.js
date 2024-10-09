@@ -8,20 +8,13 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
     let list = "<ul>"
-    list += '<li><a href="/" title="Home Page">Home</a></li>'
+    list += '<li><a href="/" title="Home page">Home</a></li>'
     data.rows.forEach((row) => {
         list += "<li>"
-        list +=
-            '<a href="/inv/type/' +
-            row.classification_id +
-            '" title="See our inventory of ' +
-            row.classification_name +
-            ' vehicles">' +
-            row.classification_name +
-            "</a>"
+        list += '<a href="/inv/type/' + row.classification_id + '" title="See our inventory of ' + row.classification_name + ' vehicles">' + row.classification_name + "</a>"
         list += "</li>"
     })
-    list += "<ul/>"
+    list += "</ul>"
     return list
 }
 
@@ -58,6 +51,29 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+/* **************************************
+* Build the vehicle display view HTML
+* ************************************ */
+Util.buildVehicleDisplay = async function (data) {
+    let display =
+        `  
+            <img id="info-img" src="${data.inv_image}" alt="${data.inv_year} ${data.inv_make} ${data.inv_model}">
+            <div id="text_info">
+                <h2>${data.inv_make} ${data.inv_model} Details</h2>
+                <p class="info price"><span class="label">Price:</span> $${new Intl.NumberFormat('en-US').format(data.inv_price)}</p>
+                <p class="info"><span class="label">Description:</span> ${data.inv_description}</p>
+                <p class="info"><span class="label">Color:</span> ${data.inv_color}</p>
+                <p class="info"><span class="label">Miles:</span> ${new Intl.NumberFormat('en-US').format(data.inv_miles)}</p>
+            </div>
+        `
+
+    return display
+}
+
+Util.buildError = async function () {
+
+    return `<a href="/error">Error Link</a>`
+}
 
 /* ****************************************
  * Middleware For Handling Errors
