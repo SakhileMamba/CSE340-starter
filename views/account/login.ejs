@@ -1,0 +1,13 @@
+<h1><%- title %></h1>
+<%- messages() %>
+
+    <div id="form-container">
+        <form>
+            <label for="account_email">Account Email</label>
+            <input type="email" name="account_email" id="account_email">
+            <label for="account_password">Account Password</label>
+            <input type="password" name="account_password" id="account_password">
+            <input type="submit" value="Login">
+        </form><br>
+        <p>No account? <span><a href="/account/register">Sign-up</a></span></p>
+    </div>

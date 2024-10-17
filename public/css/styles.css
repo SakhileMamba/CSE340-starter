@@ -27,6 +27,11 @@ body {
   padding-bottom: 1em;
 }
 
+.notice {
+  color: red;
+  margin-left: 16px;
+}
+
 header {
   width: 100%;
   display: flex;
@@ -236,6 +241,43 @@ main {
   padding-bottom: 20px;
 }
 
+#form-container {
+  color: white;
+  background-color: #32475C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  border: 3px solid #978981;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+
+form input {
+  border-radius: 4px;
+}
+
+form p,
+span a {
+  color: white;
+}
+
+#form-container input[type="submit"] {
+  color: black;
+  width: 50%;
+  margin-top: 6px;
+  align-self: center;
+  border-radius: 60px;
+  padding: 6px;
+}
+
+
 @media only screen and (min-width: 768px) {
   body {
     /* You could use a regular image, but went with gradients */
@@ -285,5 +327,9 @@ main {
   picture>img {
     max-width: 500px;
     /* height: 100; */
+  }
+
+  #form-container {
+    grid-column: 1/3;
   }
 }

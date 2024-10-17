@@ -1,0 +1,16 @@
+<h1><%- title %></h1>
+<%- messages() %>
+
+    <div id="form-container">
+        <form>
+            <label for="account_firstname">First name *</label>
+            <input type="text" name="account_firstname" id="account_firstname" required>
+            <label for="account_lastname">Last name *</label>
+            <input type="text" name="account_lastname" id="account_lastname" required>
+            <label for="account_email">Email address *</label>
+            <input type="email" name="account_email" id="account_email" required>
+            <label for="account_password">Password *</label>
+            <input type="password" name="account_password" id="account_password" required>
+            <input type="submit" value="Register">
+        </form><br>
+    </div>
