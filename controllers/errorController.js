@@ -5,8 +5,9 @@ errorController.buildError = async function (req, res) {
     //throw new Error('Throw makes it go boom!')
     const error = await utilities.buildError()
     const nav = await utilities.getNav()
+    throw new Error('Throw makes it go boom!')
 
-    res.render("errors/error", { title: "500", nav, error, message: 'Oh no! There was a crash. Maybe try a different route?' })
+    //res.render("errors/error", { title: "500", nav, error, message: 'Oh no! There was a crash. Maybe try a different route?' })
 }
 
 module.exports = errorController
