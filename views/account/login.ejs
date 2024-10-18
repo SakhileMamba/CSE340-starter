@@ -1,16 +1,27 @@
 <h1><%- title %></h1>
 <%- messages() %>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
 
-    <div id="form-container">
-        <form>
-            <label for="account_email">Account Email</label>
-            <input type="email" name="account_email" id="account_email" required>
-            <label for="account_password">Account Password</label>
-            <input type="password" name="account_password" id="account_password" required
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-            <div><i>Make sure the password is at least 12 characters, has at least 1 uppercase character, 1 number and 1
-                    special character.</i></div>
-            <input type="submit" value="Login">
-        </form><br>
-        <p>No account? <span><a href="/account/register">Sign-up</a></span></p>
-    </div>
+            <div id="form-container">
+                <form id="loginForm" action="/account/login" method="post">
+                    <label for="account_email">Account Email</label>
+                    <input type="email" name="account_email" id="account_email" required
+                        value="<%= locals.account_email %>">
+                    <label for="account_password">Account Password</label>
+                    <input type="password" name="account_password" id="account_password" required
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                    <div><i>Make sure the password is at least 12 characters, has at least 1 uppercase character, 1
+                            number and 1
+                            special character.</i></div>
+                    <input type="submit" value="Login">
+                </form><br>
+                <p>No account? <span><a href="/account/register">Sign-up</a></span></p>
+            </div>
