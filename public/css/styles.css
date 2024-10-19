@@ -30,6 +30,7 @@ body {
 .notice {
   color: red;
   margin-left: 16px;
+  grid-column: span 2;
 }
 
 header {
@@ -278,6 +279,11 @@ span a {
   padding: 6px;
 }
 
+#vehicleManagementLinksList {
+  list-style: none;
+  margin-left: 28px;
+
+}
 
 @media only screen and (min-width: 768px) {
   body {
@@ -336,5 +342,10 @@ span a {
 
   #error-message {
     grid-column: span 2;
+  }
+
+  #vehicleManagementLinksList {
+    grid-column: span 2;
+
   }
 }
