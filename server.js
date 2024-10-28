@@ -14,10 +14,11 @@ const baseController = require("./controllers/baseController")
 const errorController = require("./controllers/errorController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
-const utilities = require("./utilities")
+const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require("./database/")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -34,6 +35,7 @@ app.use(session({
   name: "sessionId",
 }))
 
+
 //Express messages middleware
 app.use(require("connect-flash")())
 app.use(function (req, res, next) {
@@ -45,6 +47,11 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+//Cookoe parser
+app.use(cookieParser())
+
+//Check JWT token
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
