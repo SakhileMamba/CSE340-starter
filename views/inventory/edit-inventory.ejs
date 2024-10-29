@@ -12,9 +12,9 @@
         <div id="form-container">
 
             <br>
-            <form action="/inv/addInventory" method="post">
+            <form id="updateForm" action="/inv/update" method="post">
                 <label for="classification_id">Classification</label>
-                <%- classificationsList %>
+                <%- classificationSelect %>
 
 
                     <label for="inv_make">Make</label>
@@ -45,6 +45,11 @@
                     <div><i>All fields are rquired. Price (up to two decimal places) and Miles are numerical fields, all
                             other fields are text. The
                             year is a numeric text field.</i></div>
-                    <input type="submit" value="Add Vehicle">
+                    <input type="submit" name="submit" value="Update Vehicle" disabled>
+
+                    <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+                        <% } %>>
             </form><br>
         </div>
+
+        <script src="../../js/inv-update.js"></script>
