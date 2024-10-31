@@ -127,7 +127,6 @@ invCont.buildInventoryEdit = async function (req, res, next) {
     const itemData = await invModel.getVehicleByInventoryId(inventory_id)
     const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`
-    console.log(itemName)
     res.render("./inventory/edit-inventory", {
         title: "Edit " + itemName,
         nav,
@@ -223,7 +222,6 @@ invCont.buildInventoryDelete = async function (req, res, next) {
     const itemData = await invModel.getVehicleByInventoryId(inventory_id)
 
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`
-    console.log(itemName)
     res.render("./inventory/delete-confirm", {
         title: "Delete " + itemName,
         nav,
@@ -251,9 +249,6 @@ invCont.deleteInventory = async function (req, res,) {
         inv_price,
     } = req.body
 
-    console.log(inv_id)
-    console.log(inv_make)
-
 
     const updateResult = await invModel.deleteInventory(parseInt(inv_id))
 
@@ -275,7 +270,6 @@ invCont.deleteInventory = async function (req, res,) {
             inv_model,
             inv_year,
             inv_price,
-
         })
     }
 }

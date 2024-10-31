@@ -25,4 +25,12 @@ router.post(
 //Route to build account management view
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 
+router.get("/edit/:account_id", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountEdit))
+
+router.post("/edit/info", utilities.checkLogin, validate.accountInfoUpdateRules(), validate.checkAccountInfoUpdateData, utilities.handleErrors(accountController.updateAccountInfo))
+
+router.post("/edit/password", utilities.checkLogin, validate.accountPasswordUpdateRules(), validate.checkAccountPasswordUpdateData, utilities.handleErrors(accountController.updateAccountPassword))
+
+router.get("/logout", utilities.handleErrors(accountController.logout))
+
 module.exports = router;

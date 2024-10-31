@@ -242,7 +242,7 @@ main {
   padding-bottom: 20px;
 }
 
-#form-container {
+.form-container {
   color: white;
   background-color: #32475C;
   display: flex;
@@ -270,7 +270,7 @@ span a {
   color: white;
 }
 
-#form-container input[type="submit"] {
+.form-container input[type="submit"] {
   color: black;
   width: 50%;
   margin-top: 6px;
@@ -342,12 +342,13 @@ td {
 
   h1,
   #hero,
-  #form-container,
+  .form-container,
   table#inventoryDisplay,
   #choose-instruction,
   select#classificationList,
   #vehicleManagementLinksList,
-  #error-message {
+  #error-message,
+  .span2 {
     grid-column: span 2;
   }
 }
