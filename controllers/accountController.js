@@ -264,5 +264,60 @@ async function logout(req, res, next) {
     res.redirect("/")
 }
 
+/* ****************************************
+*  Deliver account management view
+* *************************************** */
+async function buildUserManagement(req, res, next) {
+    const admin_account_id = parseInt(req.params.admin_account_id)
+    let nav = await utilities.getNav()
+    const error = await utilities.buildError()
+    const itemData = await accountModel.getAllAccountsExpectCurrentAdmin(admin_account_id)
+    const accountsTable = await utilities.buildAccountsList(itemData)
+    res.render("./account/manage-users", {
+        title: "Manage Users",
+        nav,
+        error,
+        errors: null,
+        accountsTable
+    })
+}
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountEdit, updateAccountInfo, updateAccountPassword, logout }
+/* ****************************************
+*  Delete account
+* *************************************** */
+async function deleteAccount(req, res,) {
+    const account_id = parseInt(req.params.account_id)
+    let nav = await utilities.getNav()
+    const error = await utilities.buildError()
+
+    const updateResult = await accountModel.deleteAccount(parseInt(account_id))
+
+    if (updateResult) {
+        const itemData = await accountModel.getAllAccountsExpectCurrentAdmin(res.locals.accountData.account_id)
+        const accountsTable = await utilities.buildAccountsList(itemData)
+        req.flash("notice", `The account was successfully deleted.`)
+        res.status(200).render("account/manage-users", {
+            title: "Manage Users ",
+            nav,
+            error,
+            errors: null,
+            accountsTable
+
+        })
+    } else {
+
+        const itemData = await accountModel.getAllAccountsExpectCurrentAdmin(res.locals.accountData.account_id)
+        const accountsTable = await utilities.buildAccountsList(itemData)
+        req.flash("notice", "Sorry, the delete failed.")
+        res.status(501).render("account/manage-users", {
+            title: "Manage Users ",
+            nav,
+            error,
+            errors: null,
+            accountsTable
+
+        })
+    }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountEdit, updateAccountInfo, updateAccountPassword, logout, buildUserManagement, deleteAccount }

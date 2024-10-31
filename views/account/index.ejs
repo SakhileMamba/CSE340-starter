@@ -30,3 +30,11 @@
                     <a href="/inv/vehicleManagement">Manage Inventory</a>
                 </p>
                 <% }%>
+
+                    <% if(locals.accountData.account_type==="Admin" ) { %>
+                        <h3 class="span2">User Accounts Management</h3>
+                        <p>
+                            <a href="/account/userManagement/<%=locals.accountData.account_id%>">Manage User
+                                Accounts</a>
+                        </p>
+                        <% }%>

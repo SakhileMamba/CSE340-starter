@@ -33,4 +33,9 @@ router.post("/edit/password", utilities.checkLogin, validate.accountPasswordUpda
 
 router.get("/logout", utilities.handleErrors(accountController.logout))
 
+router.get("/userManagement/:admin_account_id", utilities.checkJWTToken, utilities.checkIsAdminAccountType, utilities.handleErrors(accountController.buildUserManagement))
+
+router.get("/delete/:account_id", utilities.checkJWTToken, utilities.checkIsAdminAccountType, utilities.handleErrors(accountController.deleteAccount))
+
+
 module.exports = router;

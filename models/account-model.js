@@ -103,4 +103,32 @@ async function updateAccountPassword(
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccountInfo, updateAccountPassword }
+/* *****************************
+* Return all accounts data using except current admin account
+* ***************************** */
+async function getAllAccountsExpectCurrentAdmin(admin_account_id) {
+    try {
+        const result = await pool.query(
+            'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id != $1',
+            [admin_account_id])
+        return result.rows
+    } catch (error) {
+        return new Error("No finding accounts")
+    }
+}
+
+/* ***************************
+ *  delete Inventory Data
+ * ************************** */
+async function deleteAccount(account_id) {
+    try {
+        const sql =
+            "DELETE FROM account WHERE account_id = $1"
+        const data = await pool.query(sql, [account_id])
+        return data
+    } catch (error) {
+        console.error("Delete Inventory Error")
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccountInfo, updateAccountPassword, getAllAccountsExpectCurrentAdmin, deleteAccount }

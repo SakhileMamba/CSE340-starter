@@ -292,6 +292,14 @@ td {
   border-collapse: collapse;
 }
 
+#users-table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#users-table td {
+  padding-left: 4px;
+}
 
 @media only screen and (min-width: 768px) {
   body {

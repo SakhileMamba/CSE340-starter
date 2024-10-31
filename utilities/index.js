@@ -182,6 +182,39 @@ Util.checkAccountType = (req, res, next) => {
     }*/
 }
 
+
+/* ****************************************
+* Middleware to check if account type is admin
+**************************************** */
+Util.checkIsAdminAccountType = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    req.flash("Please log in")
+                    res.clearCookie("jwt")
+                    return res.redirect("/account/login")
+                } else {
+                    if (accountData.account_type === "Admin") {
+                        next()
+                    }
+                    else {
+                        req.flash("notice", "You do not have the authorization. You must be an Administrator to do that.")
+                        return res.redirect("/account/")
+                    }
+                }
+
+            })
+    } else {
+        req.flash("notice", "Please log in.")
+        res.clearCookie("jwt")
+        return res.redirect("/account/login")
+    }
+
+}
+
 /* ****************************************
  *  Check Login
  * ************************************ */
@@ -194,5 +227,25 @@ Util.checkLogin = (req, res, next) => {
     }
 }
 
+// Build accounts items into HTML table components and inject into DOM 
+Util.buildAccountsList = (data) => {
+    // Set up the table labels 
+    let dataTable = '<thead>';
+    dataTable += '<tr><th>ID</th><th>Full Name</th><th>Email</th><th>Type</th><th>Action</th></tr>';
+    dataTable += '</thead>';
+    // Set up the table body 
+    dataTable += '<tbody>';
+    // Iterate over all vehicles in the array and put each in a row 
+    data.forEach(function (element) {
+        dataTable += `<tr><td>${element.account_id}</td>`;
+        dataTable += `<td>${element.account_firstname} ${element.account_lastname}</td>`;
+        dataTable += `<td>${element.account_email}</td>`;
+        dataTable += `<td>${element.account_type}</td>`;
+        dataTable += `<td><a href='/account/delete/${element.account_id}' title='Click to delete'>Delete</a></td></tr>`;
+    })
+    dataTable += '</tbody>';
+    // Display the contents in the Inventory Management view 
+    return `<table id="users-table" class="span2">${dataTable}</table>`;
+}
 
 module.exports = Util
